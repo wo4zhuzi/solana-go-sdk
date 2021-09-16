@@ -84,12 +84,19 @@ type Message struct {
 	Header          MessageHeader `json:"header"`
 	AccountKeys     []string      `json:"accountKeys"`
 	RecentBlockhash string        `json:"recentBlockhash"`
+	Instructions    []Instruction `json:"instructions"`
+}
+
+type MessageJsonParsed struct {
+	Header          MessageHeader `json:"header"`
+	AccountKeys     []interface{}      `json:"accountKeys"`
+	RecentBlockhash string        `json:"recentBlockhash"`
 	Instructions    []InstructionJsonParsed `json:"instructions"`
 }
 
 type Transaction struct {
 	Signatures []string `json:"signatures"`
-	Message    Message  `json:"message"`
+	Message    MessageJsonParsed  `json:"message"`
 }
 
 type Encoding string

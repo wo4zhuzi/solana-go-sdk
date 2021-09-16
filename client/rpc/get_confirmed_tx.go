@@ -3,9 +3,9 @@ package rpc
 import "context"
 
 type GetConfirmedTransactionResponse struct {
-	Slot        uint64          `json:"slot"`
-	Meta        TransactionMeta `json:"meta"`
-	Transaction Transaction     `json:"transaction"`
+	Slot        uint64                    `json:"slot"`
+	Meta        TransactionMetaJsonParsed `json:"meta"`
+	Transaction Transaction               `json:"transaction"`
 }
 
 // DEPRECATED: Please use getTransaction instead This method is expected to be removed in solana-core v1.8

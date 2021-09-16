@@ -31,22 +31,26 @@ type Instruction struct {
 }
 
 type InstructionJsonParsed struct {
-	Parsed		   Parsed   `json:"parsed"`
-	Program		   string	`json:"program"`
-	ProgramId 	   string   `json:"programId"`
-	Accounts       []string `json:"accounts"`
-	Data           string   `json:"data"`
+	Parsed    *Parsed   `json:"parsed"`
+	Program   string    `json:"program"`
+	ProgramId string    `json:"programId"`
+	Accounts  *[]string `json:"accounts"`
+	Data      string    `json:"data"`
 }
 
 type Parsed struct {
-	Info	Info   `json:"info"`
-	Type 	string `json:"type"`
+	Info Info   `json:"info"`
+	Type string `json:"type"`
 }
 
 type Info struct {
-	Destination string `json:"destination"`
-	Lamports float64 `json:"lamports"`
-	Source string `json:"source"`
+	Account     string  `json:"account"`
+	Amount      string  `json:"amount"`
+	Authority   string  `json:"authority"`
+	Mint        string  `json:"mint"`
+	Destination string  `json:"destination"`
+	Lamports    float64 `json:"lamports"`
+	Source      string  `json:"source"`
 }
 
 type TransactionMetaTokenBalance struct {
@@ -74,6 +78,21 @@ type TransactionMeta struct {
 	Status map[string]interface{} `json:"status"`
 }
 
+type TransactionMetaJsonParsed struct {
+	Fee               uint64                        `json:"fee"`
+	PreBalances       []int64                       `json:"preBalances"`
+	PostBalances      []int64                       `json:"postBalances"`
+	PreTokenBalances  []TransactionMetaTokenBalance `json:"preTokenBalances"`
+	PostTokenBalances []TransactionMetaTokenBalance `json:"postTokenBalances"`
+	LogMessages       []string                      `json:"logMessages"`
+	InnerInstructions []struct {
+		Index        uint64                  `json:"index"`
+		Instructions []InstructionJsonParsed `json:"instructions"`
+	} `json:"innerInstructions"`
+	Err    interface{}            `json:"err"`
+	Status map[string]interface{} `json:"status"`
+}
+
 type MessageHeader struct {
 	NumRequiredSignatures       uint8 `json:"numRequiredSignatures"`
 	NumReadonlySignedAccounts   uint8 `json:"numReadonlySignedAccounts"`
@@ -88,15 +107,21 @@ type Message struct {
 }
 
 type MessageJsonParsed struct {
-	Header          MessageHeader `json:"header"`
-	AccountKeys     []interface{}      `json:"accountKeys"`
-	RecentBlockhash string        `json:"recentBlockhash"`
+	Header          MessageHeader           `json:"header"`
+	AccountKeys     []AccountKeys           `json:"accountKeys"`
+	RecentBlockhash string                  `json:"recentBlockhash"`
 	Instructions    []InstructionJsonParsed `json:"instructions"`
 }
 
+type AccountKeys struct {
+	Pubkey   string `json:"pubkey"`
+	Signer   bool   `json:"signer"`
+	Writable bool   `json:"writable"`
+}
+
 type Transaction struct {
-	Signatures []string `json:"signatures"`
-	Message    MessageJsonParsed  `json:"message"`
+	Signatures []string          `json:"signatures"`
+	Message    MessageJsonParsed `json:"message"`
 }
 
 type Encoding string

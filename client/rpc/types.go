@@ -30,6 +30,25 @@ type Instruction struct {
 	Data           string   `json:"data"`
 }
 
+type InstructionJsonParsed struct {
+	Parsed		   Parsed   `json:"parsed"`
+	Program		   string	`json:"program"`
+	ProgramId 	   string   `json:"programId"`
+	Accounts       []string `json:"accounts"`
+	Data           string   `json:"data"`
+}
+
+type Parsed struct {
+	Info	Info   `json:"info"`
+	Type 	string `json:"type"`
+}
+
+type Info struct {
+	Destination string `json:"destination"`
+	Lamports float64 `json:"lamports"`
+	Source string `json:"source"`
+}
+
 type TransactionMetaTokenBalance struct {
 	AccountIndex  int    `json:"accountIndex"`
 	Mint          string `json:"mint"`
@@ -65,7 +84,7 @@ type Message struct {
 	Header          MessageHeader `json:"header"`
 	AccountKeys     []string      `json:"accountKeys"`
 	RecentBlockhash string        `json:"recentBlockhash"`
-	Instructions    []Instruction `json:"instructions"`
+	Instructions    []InstructionJsonParsed `json:"instructions"`
 }
 
 type Transaction struct {

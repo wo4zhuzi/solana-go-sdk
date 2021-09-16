@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/portto/solana-go-sdk/types"
+	"github.com/wo4zhuzi/solana-go-sdk/types"
 )
 
 func main() {

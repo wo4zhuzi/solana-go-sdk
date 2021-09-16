@@ -1,4 +1,4 @@
-module github.com/portto/solana-go-sdk
+module github.com/wo4zhuzi/solana-go-sdk
 
 go 1.16
 

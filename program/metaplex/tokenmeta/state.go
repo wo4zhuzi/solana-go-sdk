@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/near/borsh-go"
-	"github.com/portto/solana-go-sdk/common"
+	"github.com/wo4zhuzi/solana-go-sdk/common"
 )
 
 type Key borsh.Enum

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/portto/solana-go-sdk/client"
-	"github.com/portto/solana-go-sdk/client/rpc"
-	"github.com/portto/solana-go-sdk/types"
+	"github.com/wo4zhuzi/solana-go-sdk/client"
+	"github.com/wo4zhuzi/solana-go-sdk/client/rpc"
+	"github.com/wo4zhuzi/solana-go-sdk/types"
 )
 
 func main() {

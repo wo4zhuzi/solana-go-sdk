@@ -1,6 +1,6 @@
 package pointer
 
-import "github.com/portto/solana-go-sdk/common"
+import "github.com/wo4zhuzi/solana-go-sdk/common"
 
 func Uint64(v uint64) *uint64 {
 	return &v

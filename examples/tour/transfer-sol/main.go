@@ -4,11 +4,11 @@ import (
 	"context"
 	"log"
 
-	"github.com/portto/solana-go-sdk/client"
-	"github.com/portto/solana-go-sdk/client/rpc"
-	"github.com/portto/solana-go-sdk/common"
-	"github.com/portto/solana-go-sdk/program/sysprog"
-	"github.com/portto/solana-go-sdk/types"
+	"github.com/wo4zhuzi/solana-go-sdk/client"
+	"github.com/wo4zhuzi/solana-go-sdk/client/rpc"
+	"github.com/wo4zhuzi/solana-go-sdk/common"
+	"github.com/wo4zhuzi/solana-go-sdk/program/sysprog"
+	"github.com/wo4zhuzi/solana-go-sdk/types"
 )
 
 // you can fill your key here

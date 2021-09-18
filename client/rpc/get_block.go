@@ -12,7 +12,7 @@ type GetBlockConfig struct {
 }
 
 type GetBlockResponse struct {
-	BlockHeight		  string `json:"blockHeight"`
+	BlockHeight		  int64 `json:"blockHeight"`
 	Blockhash         string `json:"blockhash"`
 	PreviousBlockhash string `json:"previousBlockhash"`
 	ParentSLot        uint64 `json:"parentSlot"`

@@ -1,11 +1,13 @@
 package rpc
 
-import "context"
+import (
+	"context"
+)
 
 type GetBlockConfig struct {
 	// TODO custom
-	// Encoding           string     `json:"encoding"`             // default: "json", either "json", "jsonParsed", "base58" (slow), "base64"
-	// TransactionDetails string     `json:"transactionDetails"`   // default: "full", either "full", "signatures", "none"
+	Encoding string `json:"encoding"` // default: "json", either "json", "jsonParsed", "base58" (slow), "base64"
+	//TransactionDetails string     `json:"transactionDetails"`   // default: "full", either "full", "signatures", "none"
 	Commitment Commitment `json:"commitment,omitempty"` // "processed" is not supported. If parameter not provided, the default is "finalized".
 }
 
@@ -15,8 +17,8 @@ type GetBlockResponse struct {
 	ParentSLot        uint64 `json:"parentSlot"`
 	BlockTime         int64  `json:"blockTime"`
 	Transactions      []struct {
-		Meta        TransactionMeta `json:"meta"`
-		Transaction Transaction     `json:"transaction"`
+		Meta        TransactionMetaJsonParsed `json:"meta"`
+		Transaction Transaction               `json:"transaction"`
 	} `json:"transactions"`
 	Rewards []struct {
 		Pubkey      string `json:"pubkey"`
@@ -33,7 +35,7 @@ func (s *RpcClient) GetBlock(ctx context.Context, slot uint64, cfg GetBlockConfi
 		GeneralResponse
 		Result GetBlockResponse `json:"result"`
 	}{}
-	err := s.request(ctx, "getBlock", []interface{}{slot, cfg}, &res)
+	err := s.request(ctx, "getConfirmedBlock", []interface{}{slot, cfg}, &res)
 	if err != nil {
 		return GetBlockResponse{}, err
 	}

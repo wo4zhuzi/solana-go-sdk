@@ -1,5 +1,7 @@
 package rpc
 
+import "encoding/json"
+
 type Commitment string
 
 const (
@@ -31,11 +33,11 @@ type Instruction struct {
 }
 
 type InstructionJsonParsed struct {
-	Parsed    *Parsed   `json:"parsed"`
-	Program   string    `json:"program"`
-	ProgramId string    `json:"programId"`
-	Accounts  *[]string `json:"accounts"`
-	Data      string    `json:"data"`
+	Parsed    json.RawMessage `json:"parsed"`
+	Program   string          `json:"program"`
+	ProgramId string          `json:"programId"`
+	Accounts  *[]string       `json:"accounts"`
+	Data      string          `json:"data"`
 }
 
 type Parsed struct {

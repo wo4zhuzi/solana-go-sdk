@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"context"
+	"encoding/json"
 )
 
 // GetAccountInfoConfigEncoding is account's data encode format
@@ -46,7 +47,7 @@ type GetAccountInfoResultValue struct {
 	Owner     string      `json:"owner"`
 	Excutable bool        `json:"excutable"`
 	RentEpoch uint64      `json:"rentEpoch"`
-	Data      interface{} `json:"data"`
+	Data      json.RawMessage `json:"data"`
 }
 
 // GetAccountInfo returns all information associated with the account of provided Pubkey
@@ -57,6 +58,23 @@ func (c *RpcClient) GetAccountInfo(ctx context.Context, base58Addr string) (GetA
 // GetAccountInfo returns all information associated with the account of provided Pubkey
 func (c *RpcClient) GetAccountInfoWithCfg(ctx context.Context, base58Addr string, cfg GetAccountInfoConfig) (GetAccountInfoResponse, error) {
 	return c.processGetAccountInfo(c.Call(ctx, "getAccountInfo", base58Addr, cfg))
+}
+
+func (c *RpcClient) GetAccountMultiInfoWithCfg(ctx context.Context, base58Addrs []string, cfg GetAccountInfoConfig) ([]GetAccountInfoResponse, error) {
+	res := []GetAccountInfoResponse{}
+	params := [][]interface{}{}
+	for _, base58Addr := range base58Addrs {
+		params = append(params, []interface{}{
+			base58Addr,
+			cfg,
+		})
+	}
+	err := c.requestMulti(ctx, "getAccountInfo", params, &res)
+
+	if err != nil {
+		return []GetAccountInfoResponse{}, err
+	}
+	return res, nil
 }
 
 func (c *RpcClient) processGetAccountInfo(body []byte, rpcErr error) (res GetAccountInfoResponse, err error) {

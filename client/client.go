@@ -23,7 +23,7 @@ func NewClient(endpoint string) *Client {
 // GetBalance fetch users lamports(SOL) balance
 func (c *Client) GetBalance(ctx context.Context, base58Addr string) (uint64, error) {
 	res, err := c.RpcClient.GetBalance(ctx, base58Addr)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return 0, err
 	}
@@ -33,7 +33,7 @@ func (c *Client) GetBalance(ctx context.Context, base58Addr string) (uint64, err
 // GetBalance fetch users lamports(SOL) balance with specific commitment
 func (c *Client) GetBalanceWithCfg(ctx context.Context, base58Addr string, cfg rpc.GetBalanceConfig) (uint64, error) {
 	res, err := c.RpcClient.GetBalanceWithCfg(ctx, base58Addr, cfg)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return 0, err
 	}
@@ -43,7 +43,7 @@ func (c *Client) GetBalanceWithCfg(ctx context.Context, base58Addr string, cfg r
 // GetTokenAccountBalance returns the token balance of an SPL Token account
 func (c *Client) GetTokenAccountBalance(ctx context.Context, base58Addr string) (uint64, uint8, error) {
 	res, err := c.RpcClient.GetTokenAccountBalance(ctx, base58Addr)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return 0, 0, err
 	}
@@ -57,7 +57,7 @@ func (c *Client) GetTokenAccountBalance(ctx context.Context, base58Addr string) 
 // GetTokenAccountBalance returns the token balance of an SPL Token account
 func (c *Client) GetTokenAccountBalanceWithCfg(ctx context.Context, base58Addr string, cfg rpc.GetTokenAccountBalanceConfig) (uint64, uint8, error) {
 	res, err := c.RpcClient.GetTokenAccountBalanceWithCfg(ctx, base58Addr, cfg)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return 0, 0, err
 	}
@@ -77,42 +77,42 @@ type AccountInfo struct {
 }
 
 // GetAccountInfo return account's info
-func (c *Client) GetAccountInfo(ctx context.Context, base58Addr string) (AccountInfo, error) {
-	res, err := c.RpcClient.GetAccountInfoWithCfg(ctx, base58Addr, rpc.GetAccountInfoConfig{
-		Encoding: rpc.GetAccountInfoConfigEncodingBase64,
-	})
-	err = checkRpcResult(res.GeneralResponse, err)
-	if err != nil {
-		return AccountInfo{}, err
-	}
-	if res.Result.Value == (rpc.GetAccountInfoResultValue{}) {
-		return AccountInfo{}, nil
-	}
-
-	data, ok := res.Result.Value.Data.([]interface{})
-	if !ok {
-		return AccountInfo{}, fmt.Errorf("failed to cast raw response to []interface{}")
-	}
-	if data[1] != string(rpc.GetAccountInfoConfigEncodingBase64) {
-		return AccountInfo{}, fmt.Errorf("encoding mistmatch")
-	}
-	rawData, err := base64.StdEncoding.DecodeString(data[0].(string))
-	if err != nil {
-		return AccountInfo{}, fmt.Errorf("failed to base64 decode data")
-	}
-	return AccountInfo{
-		Lamports:  res.Result.Value.Lamports,
-		Owner:     res.Result.Value.Owner,
-		Excutable: res.Result.Value.Excutable,
-		RentEpoch: res.Result.Value.RentEpoch,
-		Data:      rawData,
-	}, nil
-}
+//func (c *Client) GetAccountInfo(ctx context.Context, base58Addr string) (AccountInfo, error) {
+//	res, err := c.RpcClient.GetAccountInfoWithCfg(ctx, base58Addr, rpc.GetAccountInfoConfig{
+//		Encoding: rpc.GetAccountInfoConfigEncodingBase64,
+//	})
+//	err = CheckRpcResult(res.GeneralResponse, err)
+//	if err != nil {
+//		return AccountInfo{}, err
+//	}
+//	//if res.Result.Value == (rpc.GetAccountInfoResultValue{}) {
+//	//	return AccountInfo{}, nil
+//	//}
+//
+//	data, ok := res.Result.Value.Data.([]interface{})
+//	if !ok {
+//		return AccountInfo{}, fmt.Errorf("failed to cast raw response to []interface{}")
+//	}
+//	if data[1] != string(rpc.GetAccountInfoConfigEncodingBase64) {
+//		return AccountInfo{}, fmt.Errorf("encoding mistmatch")
+//	}
+//	rawData, err := base64.StdEncoding.DecodeString(data[0].(string))
+//	if err != nil {
+//		return AccountInfo{}, fmt.Errorf("failed to base64 decode data")
+//	}
+//	return AccountInfo{
+//		Lamports:  res.Result.Value.Lamports,
+//		Owner:     res.Result.Value.Owner,
+//		Excutable: res.Result.Value.Excutable,
+//		RentEpoch: res.Result.Value.RentEpoch,
+//		Data:      rawData,
+//	}, nil
+//}
 
 // GetRecentBlockhash return recent blockhash information
 func (c *Client) GetRecentBlockhash(ctx context.Context) (rpc.GetRecentBlockHashResultValue, error) {
 	res, err := c.RpcClient.GetRecentBlockhash(ctx)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return rpc.GetRecentBlockHashResultValue{}, err
 	}
@@ -128,7 +128,7 @@ func (c *Client) SendRawTransaction(ctx context.Context, tx []byte) (string, err
 			Encoding: rpc.SendTransactionConfigEncodingBase64,
 		},
 	)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return "", err
 	}
@@ -161,7 +161,7 @@ func (c *Client) SendTransaction(ctx context.Context, param SendTransactionParam
 		base64.StdEncoding.EncodeToString(rawTx),
 		rpc.SendTransactionConfig{Encoding: rpc.SendTransactionConfigEncodingBase64},
 	)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return "", err
 	}
@@ -181,7 +181,7 @@ func (c *Client) SendTransaction2(ctx context.Context, tx types.Transaction) (st
 			Encoding: rpc.SendTransactionConfigEncodingBase64,
 		},
 	)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return "", err
 	}
@@ -191,24 +191,34 @@ func (c *Client) SendTransaction2(ctx context.Context, tx types.Transaction) (st
 // GetSlot get current slot (finalized)
 func (c *Client) GetSlot(ctx context.Context) (uint64, error) {
 	res, err := c.RpcClient.GetSlot(ctx)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return 0, err
 	}
 	return res.Result, nil
+}
+
+func (c *Client) GetTokenAccountsByOwner (ctx context.Context, address string, mint string) (rpc.GetTokenAccountsByOwnerResponseValue, error) {
+	res, err := c.RpcClient.GetTokenAccountsByOwner(ctx, address, mint)
+
+	err = CheckRpcResult(res.GeneralResponse, err)
+	if err != nil {
+		return rpc.GetTokenAccountsByOwnerResponseValue{}, err
+	}
+	return res.Result.Value, nil
 }
 
 // GetSlotWithCfg get slot by commitment
 func (c *Client) GetSlotWithCfg(ctx context.Context, cfg rpc.GetSlotConfig) (uint64, error) {
 	res, err := c.RpcClient.GetSlotWithCfg(ctx, cfg)
-	err = checkRpcResult(res.GeneralResponse, err)
+	err = CheckRpcResult(res.GeneralResponse, err)
 	if err != nil {
 		return 0, err
 	}
 	return res.Result, nil
 }
 
-func checkRpcResult(res rpc.GeneralResponse, err error) error {
+func CheckRpcResult(res rpc.GeneralResponse, err error) error {
 	if err != nil {
 		return err
 	}

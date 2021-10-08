@@ -47,6 +47,7 @@ type Parsed struct {
 
 type Info struct {
 	Account     string  `json:"account"`
+	NewAccount	string	`json:"newAccount"`
 	Amount      string  `json:"amount"`
 	Authority   string  `json:"authority"`
 	Mint        string  `json:"mint"`

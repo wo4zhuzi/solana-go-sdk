@@ -15,7 +15,8 @@ func (s *RpcClient) GetConfirmedTransaction(ctx context.Context, txhash string) 
 		GeneralResponse
 		Result GetConfirmedTransactionResponse `json:"result"`
 	}{}
-	err := s.request(ctx, "getConfirmedTransaction", []interface{}{txhash, "json"}, &res)
+
+	err := s.request(ctx, "getConfirmedTransaction", []interface{}{txhash, "jsonParsed"}, &res)
 	if err != nil {
 		return GetConfirmedTransactionResponse{}, err
 	}

@@ -46,15 +46,23 @@ type Parsed struct {
 }
 
 type Info struct {
-	Account     string  `json:"account"`
-	NewAccount	string	`json:"newAccount"`
-	Owner		string  `json:"owner"`
-	Amount      string  `json:"amount"`
-	Authority   string  `json:"authority"`
-	Mint        string  `json:"mint"`
-	Destination string  `json:"destination"`
-	Lamports    float64 `json:"lamports"`
-	Source      string  `json:"source"`
+	Account     string      `json:"account"`
+	NewAccount  string      `json:"newAccount"`
+	Owner       string      `json:"owner"`
+	Amount      string      `json:"amount"`
+	Authority   string      `json:"authority"`
+	Mint        string      `json:"mint"`
+	Destination string      `json:"destination"`
+	Lamports    float64     `json:"lamports"`
+	Source      string      `json:"source"`
+	TokenAmount TokenAmount `json:"tokenAmount"`
+}
+
+type TokenAmount struct {
+	Amount         string  `json:"amount"`
+	Decimals       int64   `json:"decimals"`
+	UiAmount       float64 `json:"uiAmount"`
+	UiAmountString string  `json:"uiAmountString"`
 }
 
 type TransactionMetaTokenBalance struct {

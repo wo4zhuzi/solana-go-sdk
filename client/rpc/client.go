@@ -130,7 +130,7 @@ func (s *RpcClient) request(ctx context.Context, method string, params []interfa
 // TODO use Call
 func (s *RpcClient) requestMulti(ctx context.Context, method string, params [][]interface{}, response interface{}) error {
 	reqMulti := []interface{}{}
-	for k, v:= range params {
+	for k, v := range params {
 		reqMulti = append(reqMulti, map[string]interface{}{
 			"jsonrpc": "2.0",
 			"id":      k,

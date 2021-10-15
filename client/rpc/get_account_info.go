@@ -43,10 +43,10 @@ type GetAccountInfoResult struct {
 
 // GetAccountInfoResultValue is rpc result of `getAccountInfo`
 type GetAccountInfoResultValue struct {
-	Lamports  uint64      `json:"lamports"`
-	Owner     string      `json:"owner"`
-	Excutable bool        `json:"excutable"`
-	RentEpoch uint64      `json:"rentEpoch"`
+	Lamports  uint64          `json:"lamports"`
+	Owner     string          `json:"owner"`
+	Excutable bool            `json:"excutable"`
+	RentEpoch uint64          `json:"rentEpoch"`
 	Data      json.RawMessage `json:"data"`
 }
 

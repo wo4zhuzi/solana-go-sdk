@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 const (
@@ -102,7 +103,9 @@ func (s *RpcClient) request(ctx context.Context, method string, params []interfa
 	req.Header.Add("Content-Type", "application/json")
 
 	// http client and send request
-	httpclient := &http.Client{}
+	httpclient := &http.Client{
+		Timeout: 30 * time.Second,
+	}
 	res, err := httpclient.Do(req)
 	if err != nil {
 		return err

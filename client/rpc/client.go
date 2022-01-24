@@ -24,6 +24,14 @@ func NewRpcClient(endpoint string) RpcClient {
 	return RpcClient{endpoint: endpoint}
 }
 
+func (c *RpcClient) SetEndpoint(endpoint string) {
+	c.endpoint = endpoint
+}
+
+func (c *RpcClient) GetEndpoint() string {
+	return c.endpoint
+}
+
 // Call will return body of response. if http code beyond 200~300, the error also returns.
 func (c *RpcClient) Call(ctx context.Context, params ...interface{}) ([]byte, error) {
 	// prepare payload

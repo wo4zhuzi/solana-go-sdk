@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"context"
+	"fmt"
 )
 
 type GetBlockConfig struct {
@@ -40,5 +41,10 @@ func (s *RpcClient) GetBlock(ctx context.Context, slot uint64, cfg GetBlockConfi
 	if err != nil {
 		return GetBlockResponse{}, err
 	}
+
+	if res.Error != nil {
+		return GetBlockResponse{}, fmt.Errorf("%v", res.Error)
+	}
+
 	return res.Result, nil
 }

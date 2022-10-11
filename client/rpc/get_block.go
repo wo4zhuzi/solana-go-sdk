@@ -42,7 +42,7 @@ func (s *RpcClient) GetBlock(ctx context.Context, slot uint64, cfg GetBlockConfi
 		return GetBlockResponse{}, err
 	}
 
-	if res.Error != nil && res.Error.Code != -32007 && res.Error.Code != -32009 {
+	if res.Error != nil && res.Error.Code != -32007 && res.Error.Code != -32009 && res.Error.Code != -32015 {
 		return GetBlockResponse{}, fmt.Errorf("%v", res.Error)
 	}
 

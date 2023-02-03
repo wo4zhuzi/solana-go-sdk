@@ -49,7 +49,7 @@ func (c *RpcClient) Call(ctx context.Context, params ...interface{}) ([]byte, er
 
 	// do request
 	httpclient := &http.Client{
-		Timeout: 120 * time.Second,
+		Timeout: 60 * time.Second,
 	}
 	res, err := httpclient.Do(req)
 	if err != nil {
@@ -167,7 +167,7 @@ func (s *RpcClient) requestMulti(ctx context.Context, method string, params [][]
 
 	// http client and send request
 	httpclient := &http.Client{
-		Timeout: 120 * time.Second,
+		Timeout: 60 * time.Second,
 	}
 	res, err := httpclient.Do(req)
 	if err != nil {

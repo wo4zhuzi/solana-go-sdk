@@ -48,7 +48,9 @@ func (c *RpcClient) Call(ctx context.Context, params ...interface{}) ([]byte, er
 	req.Header.Add("Content-Type", "application/json")
 
 	// do request
-	httpclient := &http.Client{}
+	httpclient := &http.Client{
+		Timeout: 120 * time.Second,
+	}
 	res, err := httpclient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to do request, err: %v", err)
@@ -164,7 +166,9 @@ func (s *RpcClient) requestMulti(ctx context.Context, method string, params [][]
 	req.Header.Add("Content-Type", "application/json")
 
 	// http client and send request
-	httpclient := &http.Client{}
+	httpclient := &http.Client{
+		Timeout: 120 * time.Second,
+	}
 	res, err := httpclient.Do(req)
 	if err != nil {
 		return err

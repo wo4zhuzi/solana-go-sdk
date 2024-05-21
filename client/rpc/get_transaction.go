@@ -4,8 +4,9 @@ import "context"
 
 type GetTransactionWithLimitConfig struct {
 	// TODO custom encoding
-	Encoding   string     `json:"encoding,omitempty"`   // either "json", "jsonParsed", "base58" (slow), "base64", default: json
-	Commitment Commitment `json:"commitment,omitempty"` // "processed" is not supported. If parameter not provided, the default is "finalized".
+	Encoding                       string     `json:"encoding,omitempty"`   // either "json", "jsonParsed", "base58" (slow), "base64", default: json
+	Commitment                     Commitment `json:"commitment,omitempty"` // "processed" is not supported. If parameter not provided, the default is "finalized".
+	MaxSupportedTransactionVersion int        `json:"maxSupportedTransactionVersion"`
 }
 
 type GetTransaction struct {

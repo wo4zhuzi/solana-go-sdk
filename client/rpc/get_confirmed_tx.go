@@ -3,6 +3,7 @@ package rpc
 import "context"
 
 type GetConfirmedTransactionResponse struct {
+	BlockTime   uint64                    `json:"blockTime"`
 	Slot        uint64                    `json:"slot"`
 	Meta        TransactionMetaJsonParsed `json:"meta"`
 	Transaction Transaction               `json:"transaction"`

@@ -68,6 +68,8 @@ type TokenAmount struct {
 type TransactionMetaTokenBalance struct {
 	AccountIndex  int    `json:"accountIndex"`
 	Mint          string `json:"mint"`
+	Owner         string `json:"owner"`
+	ProgramId     string `json:"programId"`
 	UITokenAmount struct {
 		Amount         string `json:"amount"`
 		Decimals       int64  `json:"decimals"`
